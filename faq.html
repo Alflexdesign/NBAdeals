@@ -1,0 +1,634 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kenya Safari FAQ | Nature Breeze Safaris</title>
+
+    <style>
+        /* ===== FAQ SECTION ===== */
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f8f8f8;
+        }
+
+        .faq-section {
+            max-width: 900px;
+            margin: auto;
+            padding: 80px 20px;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 10px;
+            color: #d48b26;
+            font-family: 'Genera grotesk', sans-serif;
+        }
+
+        .faq-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, border-left 0.3s ease, box-shadow 0.3s ease;
+            border-left: 0px solid #d48b26;
+        }
+
+        .faq-item:hover {
+            transform: translateX(8px);
+            border-left: 6px solid #d48b26;
+            box-shadow: 0 5px 15px rgba(212, 139, 38, 0.2);
+        }
+
+        .faq-question {
+            padding: 18px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question:hover {
+            background: #f3f3f3;
+            color: #d48b26;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .faq-answer p {
+            padding-bottom: 20px;
+        }
+
+        .faq-icon {
+            font-size: 22px;
+            transition: transform 0.3s ease;
+            color: #d48b26;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
+
+    <nav class="navbar" style="background: rgba(0,0,0,0.8);">
+        <ul class="nav-links">
+            <li><a href="index.html.html">HOME</a></li>
+            <li><a href="index.html.html#about-section">ABOUT</a></li>
+            <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+            <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+            <li><a href="signature.html.html">DESTINATIONS</a></li>
+            <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+        </ul>
+
+        <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+        <div class="hamburger" id="hamburger">
+            <span style="background: white"></span>
+            <span style="background: white"></span>
+            <span style="background: white"></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html.html">Home</a>
+            <a href="index.html.html#about-section">About</a>
+            <a href="bigfive.html.html">The Big Five</a>
+            <a href="signature.html.html">Signature Safari</a>
+            <a href="signature.html.html">Destinations</a>
+            <a href="index.html.html#footer-section">Contact</a>
+        </div>
+    </nav>
+
+    <script>
+        (function () {
+            const hamburger = document.getElementById("hamburger");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener("click", function () {
+                    hamburger.classList.toggle("active");
+                    mobileMenu.style.display =
+                        mobileMenu.style.display === "flex" ? "none" : "flex";
+                });
+            }
+        })();
+    </script>
+    <!-- ======================================== -->
+
+    <section class="faq-section" style="margin-top: 80px;">
+
+        <h2 class="faq-title">Kenya Safari FAQs</h2>
+        <p class="faq-subtitle">Everything you need to know before your Kenya safari adventure.</p>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                What is the best time to go on a safari in Kenya?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>The best time for a Kenya safari is during the dry seasons from June to October and January to March
+                    when wildlife is easier to spot around water sources. July to October is also famous for the Great
+                    Migration.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                What animals can you see on a Kenya safari?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Kenya is home to the famous Big Five: lions, elephants, buffalo, leopards, and rhinos. You can also
+                    see giraffes, zebras, cheetahs, wildebeest, hippos, and hundreds of bird species across different
+                    national parks.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                How many days do you need for a Kenya safari?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Most travelers choose a safari lasting 3 to 7 days. This allows time to explore top parks like Maasai
+                    Mara, Amboseli, Lake Nakuru, or Tsavo while enjoying multiple game drives.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                How much does a Kenya safari cost?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Safari prices vary depending on accommodation and duration. Budget safaris may start around $200 per
+                    day while luxury safaris can exceed $1000 per day including accommodation, park fees, and guided
+                    game drives.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                What should I pack for a safari in Kenya?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Pack lightweight neutral-colored clothing, a hat, sunscreen, insect repellent, comfortable walking
+                    shoes, sunglasses, and a camera with zoom lens for wildlife photography.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                Is Kenya safe for safari tourists?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes. Kenya is one of Africa’s most popular safari destinations. Most safaris are conducted with
+                    experienced guides in protected national parks and conservancies.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                What is a game drive on safari?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>A game drive is a guided wildlife viewing experience in a safari vehicle. Drives usually happen early
+                    morning and late afternoon when animals are most active.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                Can you combine a safari with a beach holiday in Kenya?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes. Many visitors combine wildlife safaris with beach destinations like Diani or Watamu for
+                    relaxation after exploring Kenya’s national parks.</p>
+            </div>
+        </div>
+
+
+        <div class="faq-item">
+            <div class="faq-question">
+                Do I need vaccinations for a Kenya safari?
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Travelers are usually advised to consult a doctor about vaccinations and malaria prevention before
+                    visiting Kenya. Travel insurance is also recommended.</p>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" class="footer-form" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname" required>
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname" required>
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone" required>
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email" required
+                        pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                        title="Please provide a valid complete email address (e.g. user@gmail.com)">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Nature Breeze Safaris | Ethical Travel & Responsible Tourism
+        </div>
+
+    </footer>
+    <!-- ======================================== -->
+
+    <script>
+
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach(item => {
+
+            item.querySelector(".faq-question").addEventListener("click", () => {
+
+                item.classList.toggle("active");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

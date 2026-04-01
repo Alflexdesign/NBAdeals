@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Breeze Safaris</title>
+
+    <style>
+        @font-face {
+            font-family: 'Genera';
+            src: local('Genera Grotesk');
+            font-weight: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)),
+                url('NBA-images/Sunset.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--next-bg, none);
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 0;
+        }
+
+        .hero.crossfade::before {
+            opacity: 1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 25vh;
+            background: linear-gradient(to bottom, transparent, #ffffff);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1.2s ease;
+        }
+
+        .hero-content.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero h1 {
+            font-family: 'Genera', sans-serif;
+            font-size: 60px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hero h1 span {
+            color: #f8ab3f;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .search-wrapper {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1.5s ease;
+            display: inline-flex;
+            width: 100%;
+            max-width: 450px;
+            background: #f8ab3f;
+            border-radius: 30px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .search-wrapper.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .search-bar {
+            background: transparent;
+            padding: 15px 20px 15px 30px;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            letter-spacing: 2px;
+            font-size: 13px;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-btn {
+            background: #d48b26;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .search-btn:hover {
+            background: #b5741b;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+<body>
+
+    <section class="hero">
+
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="index.html.html">HOME</a></li>
+                <li><a href="index.html.html#about-section">ABOUT</a></li>
+                <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+                <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+                <li><a href="signature.html.html">DESTINATIONS</a></li>
+                <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+            </ul>
+
+            <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html.html">Home</a>
+                <a href="index.html.html#about-section">About</a>
+                <a href="bigfive.html.html">The Big Five</a>
+                <a href="signature.html.html">Signature Safari</a>
+                <a href="signature.html.html">Destinations</a>
+                <a href="index.html.html#footer-section">Contact</a>
+            </div>
+        </nav>
+
+        <div class="hero-content" id="heroContent">
+            <h1>
+                UNTAMED KENYA
+                <span>UNFORGETTABLE SAFARI</span>
+            </h1>
+
+            <p>
+                Handcrafted Kenyan safaris that stay with you long after the dust settles.
+            </p>
+
+            <div class="search-wrapper" id="searchWrapper">
+                <input type="text" class="search-bar" id="searchBar" placeholder="Search your safari...">
+                <button class="search-btn" onclick="searchDestination()">SEARCH</button>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        window.addEventListener("load", function () {
+            document.getElementById("heroContent").classList.add("show");
+            setTimeout(function () {
+                document.getElementById("searchWrapper").classList.add("show");
+            }, 600);
+        });
+
+        const hamburger = document.getElementById("hamburger");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        hamburger.addEventListener("click", function () {
+            hamburger.classList.toggle("active");
+            mobileMenu.style.display =
+                mobileMenu.style.display === "flex" ? "none" : "flex";
+        });
+    </script>
+    <script>
+        // HERO SLIDER DATA
+        const slidesData = [
+            { heading: "UNTAMED KENYA UNFORGETTABLE SAFARI", sub: "Handcrafted Kenyan safaris that stay with you long after the dust settles.", img: "NBA-images/Sunset.jpg" },
+            { heading: "MAASAI MARA KENYA SAFARI", sub: "Step into the wild and witness Africa’s legendary Big Five.", img: "NBA-images/masai mara hero 2.jpg" },
+            { heading: "AMBOSELI SAFARI", sub: "Soar over elephants and savannahs on an unforgettable hot air balloon safari.", img: "NBA-images/amboseli hero.jpg" },
+            { heading: "DIANI BEACH", sub: "Relax, explore, and lose yourself on Kenya’s pristine coastline.", img: "NBA-images/Diani beach.jpg" },
+            { heading: "ZANZIBAR ISLAND", sub: "Dive into turquoise waters and a tropical paradise beyond imagination.", img: "NBA-images/Zanzibar hero.jpg" },
+            { heading: "EXPLORE MALINDI", sub: "Discover hidden coral reefs and luxury oceanfront adventures.", img: "NBA-images/Malindi hero.jpg" },
+            { heading: "LAKE NAIVASHA SAFARI", sub: "Sail, explore, and encounter wildlife in Kenya’s scenic lake haven.", img: "NBA-images/Naivasha hero.jpg" },
+            { heading: "SUMMIT MT. KENYA", sub: "Conquer majestic peaks and trails where adventure meets serenity.", img: "NBA-images/Mt Kenya Hero.png" }
+        ];
+
+        let currentSlide = 0;
+        const heroSection = document.querySelector(".hero");
+        const heroHeading = document.querySelector("#heroContent h1");
+        const heroSub = document.querySelector("#heroContent p");
+
+        function showSlide(index) {
+            const slide = slidesData[index];
+            const newBg = `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url('${slide.img}')`;
+
+            // Fade out current text
+            heroHeading.style.opacity = 0;
+            heroSub.style.opacity = 0;
+
+            // First time logic
+            if (heroSection.style.background === "") {
+                heroSection.style.background = `${newBg} center/cover no-repeat`;
+                heroHeading.textContent = slide.heading;
+                heroSub.textContent = slide.sub;
+                setTimeout(() => {
+                    heroHeading.style.opacity = 1;
+                    heroSub.style.opacity = 1;
+                }, 100);
+                return;
+            }
+
+            // Load new image into pseudoelement pseudo-state
+            heroSection.style.setProperty('--next-bg', `${newBg} center/cover no-repeat`);
+
+            // Trigger crossfade (starts fading in new image over old image)
+            heroSection.classList.add('crossfade');
+
+            // Wait for text fade out (500ms)
+            setTimeout(() => {
+                // Update text while crossfading is happening
+                heroHeading.textContent = slide.heading;
+                heroSub.textContent = slide.sub;
+
+                // Show new text
+                heroHeading.style.opacity = 1;
+                heroSub.style.opacity = 1;
+            }, 500);
+
+            // Wait for image crossfade to finish entirely (1.5s)
+            setTimeout(() => {
+                // Now permanently set it as primary background
+                heroSection.style.background = `${newBg} center/cover no-repeat`;
+
+                // Remove crossfade class so pseudo-element resets to 0 opactiy (invisble swap)
+                heroSection.classList.remove('crossfade');
+            }, 1500);
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slidesData.length;
+            showSlide(currentSlide);
+        }, 6000); // slide every 6 seconds
+
+        // Initialize first slide after page load
+        window.addEventListener("load", () => {
+            showSlide(0);
+        });
+    </script>
+    <!-- ===== NEXT PAGE CONTENT ===== -->
+
+    <style>
+        @font-face {
+            font-family: "Aptos Narrow";
+            src: local("Aptos Narrow");
+        }
+
+        @font-face {
+            font-family: "Aptos Body";
+            src: local("Aptos");
+        }
+
+        /* ===== TEXT SECTION ===== */
+
+        .next-section {
+            background: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .small-title {
+            font-family: "Aptos Narrow", sans-serif;
+            font-size: 14px;
+            color: #f8ab3f;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .text-paragraph {
+            font-family: "Aptos Body", sans-serif;
+            font-size: 12px;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto 25px auto;
+            line-height: 1.6;
+        }
+
+        .center-line {
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .cta-text {
+            font-style: italic;
+        }
+
+        /* ===== BRAND SECTION ===== */
+
+        .brand-banner {
+            background: #262627;
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        /* logo container background */
+
+        .brand-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: transparent;
+            padding: 25px 35px;
+            border-radius: 6px;
+        }
+
+        /* bird image */
+
+        .brand-left img {
+            width: 140px;
+        }
+
+        /* logo text */
+
+        .brand-name {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .brand-main {
+            font-family: "Genera Grotesk", sans-serif;
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-sub {
+            font-family: "Abbeville Demo", cursive;
+            font-size: 72px;
+            color: #f8ab3f;
+            align-self: center;
+            margin-top: -25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* tagline */
+
+        .brand-tagline {
+            color: #f8ab3f;
+            font-family: "Aptos Narrow", sans-serif;
+            font-size: 20px;
+            margin-right: 80px;
+        }
+
+        /* ===== ABOUT ===== */
+
+        .about-section {
+            background: #ffffff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .about-paragraph {
+            font-family: "Aptos Body", sans-serif;
+            font-size: 12px;
+            color: #333;
+            max-width: 850px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+    </style>
+
+
+    <section class="next-section">
+
+        <div class="small-title">EXPLORE KENYA WITH NATURE BREEZE SAFARIS</div>
+
+        <p class="text-paragraph">
+            Nature Breeze Safaris offers unforgettable safari experiences across Kenya’s most iconic destinations. From
+            thrilling wildlife adventures in the Maasai Mara to scenic hikes at Mount Longonot, relaxing coastal escapes
+            at Diani Beach, and mountain expeditions on Mount Kenya — we create journeys that connect travelers with the
+            beauty of Africa. We specialize in <strong>personalized safaris, wildlife tours, hiking adventures, cultural
+                experiences, and beach holidays</strong> designed for solo travelers, couples, families, and groups.
+            With expert
+            guides, carefully crafted itineraries, and deep local knowledge, Nature Breeze Safaris delivers
+            <strong>authentic, safe, and memorable Kenyan adventures.</strong> Explore Kenya. Feel the wild. Create
+            memories
+            that last a lifetime.
+
+            Ready for an unforgettable Kenyan adventure? Let Nature Breeze Safaris craft your perfect journey—wildlife,
+            mountains, beaches, and more! Book now and explore Kenya like never before!
+        </p>
+
+    </section>
+
+
+    <section class="brand-banner">
+
+        <div class="brand-left">
+
+            <img src="NBA-images/bird.png" alt="Nature Breeze Bird">
+
+            <div class="brand-name">
+                <div class="brand-main">NATURE BREEZE</div>
+                <div class="brand-sub">Safaris</div>
+            </div>
+
+        </div>
+
+        <div class="brand-tagline">
+            Discover. Connect. Preserve
+        </div>
+
+    </section>
+
+
+    <section class="about-section" id="about-section">
+
+        <div class="small-title">ABOUT US</div>
+
+        <p class="about-paragraph">
+            Nature Breeze Safaris is a premier East African travel company specializing in unforgettable safari
+            adventures, hiking expeditions, and coastal getaways across Kenya and Tanzania. We craft personalized
+            travel experiences that connect our clients with the raw beauty of nature, vibrant cultures, and thrilling
+            adventures.
+        </p>
+
+        <div class="small-title">OUR MISSION</div>
+
+        <p class="about-paragraph">
+            To inspire exploration and create meaningful, transformative travel experiences through responsible tourism
+            and exceptional service.
+        </p>
+
+    </section>
+    <!-- ================= POPULAR DESTINATIONS ================= -->
+
+    <style>
+        .destinations-section {
+            background: #ffffff;
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .destinations-title {
+            font-family: 'Genera', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            color: #f8ab3f;
+        }
+
+        .destinations-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 20px 0;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .dest-row {
+            display: flex;
+            width: max-content;
+            gap: 50px;
+            padding: 10px 0;
+        }
+
+        .row-left {
+            animation: scroll-left-dest 35s linear infinite;
+        }
+
+        .row-left:hover {
+            animation-play-state: paused;
+        }
+
+        .row-right {
+            animation: scroll-right-dest 35s linear infinite;
+        }
+
+        .row-right:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left-dest {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-50% - 25px));
+            }
+        }
+
+        @keyframes scroll-right-dest {
+            0% {
+                transform: translateX(calc(-50% - 25px));
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .destination-card {
+            position: relative;
+            text-align: center;
+            width: 320px;
+            flex-shrink: 0;
+            transition: transform .4s ease;
+            background: #fff;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform .5s ease;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-name {
+            font-family: 'Genera', sans-serif;
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #f8ab3f;
+            font-weight: 600;
+        }
+
+        .destination-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #444;
+            margin-top: 15px;
+            padding: 0 10px;
+            text-align: left;
+        }
+
+        .book-btn {
+            position: absolute;
+            bottom: 75px;
+            right: 15px;
+            background: #d52b1e;
+            color: white;
+            font-size: 10px;
+            padding: 8px 10px;
+            border-radius: 3px;
+            text-decoration: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+            transition: .3s;
+        }
+
+        .book-btn:hover {
+            background: #a01c13;
+            transform: scale(1.1);
+        }
+
+        @media(max-width:768px) {
+
+            .destinations-section {
+                padding: 60px 20px;
+            }
+
+            .destinations-title {
+                font-size: 22px;
+            }
+
+        }
+    </style>
+
+
+    <section class="destinations-section">
+
+        <h2 class="destinations-title">POPULAR DESTINATIONS</h2>
+
+        <div class="destinations-grid">
+
+            <!-- ROW 1 (Scrolls Left) -->
+            <div class="dest-row row-left">
+                <!-- Group 1 -->
+                <div class="destination-card" id="dest-masai-mara">
+                    <div class="destination-name">Masai Mara</div>
+                    <img src="NBA-images/Masai Mara.jpg" alt="Masai Mara">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Experience the legendary Maasai Mara safari — home of the Big Five and
+                        the Great Migration. Kenya’s most iconic wildlife destination for unforgettable game drives.</p>
+                </div>
+                <div class="destination-card" id="dest-amboseli">
+                    <div class="destination-name">Amboseli</div>
+                    <img src="NBA-images/Amboseli.jpg" alt="Amboseli">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">See elephants roam beneath Mount Kilimanjaro in this breathtaking Kenya
+                        safari park famous for scenic wildlife viewing.</p>
+                </div>
+                <div class="destination-card" id="dest-diani">
+                    <div class="destination-name">Diani Beach</div>
+                    <img src="NBA-images/Diani.jpg" alt="Diani Beach">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Relax on Diani Beach — Kenya’s most famous tropical escape with white
+                        sand, turquoise water, and luxury beach resorts.</p>
+                </div>
+                <div class="destination-card" id="dest-giraffe-center">
+                    <div class="destination-name">Giraffe Center</div>
+                    <img src="NBA-images/Center.jpg" alt="Giraffe Center Nairobi">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Get up close and personal with endangered Rothschild's giraffes in
+                        Nairobi. An unforgettable, ethical wildlife conservation experience.</p>
+                </div>
+                <!-- Group 2 (Duplicate for infinite scroll) -->
+                <div class="destination-card" id="dest-masai-mara-dup">
+                    <div class="destination-name">Masai Mara</div>
+                    <img src="NBA-images/Masai Mara.jpg" alt="Masai Mara">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Experience the legendary Maasai Mara safari — home of the Big Five and
+                        the Great Migration. Kenya’s most iconic wildlife destination for unforgettable game drives.</p>
+                </div>
+                <div class="destination-card" id="dest-amboseli-dup">
+                    <div class="destination-name">Amboseli</div>
+                    <img src="NBA-images/Amboseli.jpg" alt="Amboseli">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">See elephants roam beneath Mount Kilimanjaro in this breathtaking Kenya
+                        safari park famous for scenic wildlife viewing.</p>
+                </div>
+                <div class="destination-card" id="dest-diani-dup">
+                    <div class="destination-name">Diani Beach</div>
+                    <img src="NBA-images/Diani.jpg" alt="Diani Beach">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Relax on Diani Beach — Kenya’s most famous tropical escape with white
+                        sand, turquoise water, and luxury beach resorts.</p>
+                </div>
+                <div class="destination-card" id="dest-giraffe-center-dup">
+                    <div class="destination-name">Giraffe Center</div>
+                    <img src="NBA-images/Center.jpg" alt="Giraffe Center Nairobi">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Get up close and personal with endangered Rothschild's giraffes in
+                        Nairobi. An unforgettable, ethical wildlife conservation experience.</p>
+                </div>
+            </div>
+
+            <!-- ROW 2 (Scrolls Right) -->
+            <div class="dest-row row-right">
+                <!-- Group 1 -->
+                <div class="destination-card" id="dest-zanzibar">
+                    <div class="destination-name">Zanzibar</div>
+                    <img src="NBA-images/Zanzibar.jpg" alt="Zanzibar">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Crystal waters, spice culture, and paradise beaches make Zanzibar one of
+                        Africa’s most unforgettable island destinations.</p>
+                </div>
+                <div class="destination-card" id="dest-mauritius">
+                    <div class="destination-name">Mauritius</div>
+                    <img src="NBA-images/Mauritius.jpg" alt="Mauritius">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Luxury meets paradise in Mauritius — turquoise lagoons, white beaches,
+                        and world-class resorts in the Indian Ocean.</p>
+                </div>
+                <div class="destination-card" id="dest-nairobi-museum">
+                    <div class="destination-name">Nairobi Museum</div>
+                    <img src="NBA-images/National museum.jpg" alt="Nairobi National Museum">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Discover Kenya's rich heritage, art, culture, and paleontology at the
+                        iconic Nairobi National Museum.</p>
+                </div>
+                <div class="destination-card" id="dest-tsavo-park">
+                    <div class="destination-name">Tsavo Park & Singles</div>
+                    <img src="NBA-images/Tsavo.jpg" alt="Tsavo National Park">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Explore vast wilderness in Tsavo National Park. The perfect remote
+                        safari escape offering thrilling wildlife encounters and curated singles getaways.</p>
+                </div>
+                <!-- Group 2 (Duplicate for infinite scroll) -->
+                <div class="destination-card" id="dest-zanzibar-dup">
+                    <div class="destination-name">Zanzibar</div>
+                    <img src="NBA-images/Zanzibar.jpg" alt="Zanzibar">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Crystal waters, spice culture, and paradise beaches make Zanzibar one of
+                        Africa’s most unforgettable island destinations.</p>
+                </div>
+                <div class="destination-card" id="dest-mauritius-dup">
+                    <div class="destination-name">Mauritius</div>
+                    <img src="NBA-images/Mauritius.jpg" alt="Mauritius">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Luxury meets paradise in Mauritius — turquoise lagoons, white beaches,
+                        and world-class resorts in the Indian Ocean.</p>
+                </div>
+                <div class="destination-card" id="dest-nairobi-museum-dup">
+                    <div class="destination-name">Nairobi Museum</div>
+                    <img src="NBA-images/National museum.jpg" alt="Nairobi National Museum">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Discover Kenya's rich heritage, art, culture, and paleontology at the
+                        iconic Nairobi National Museum.</p>
+                </div>
+                <div class="destination-card" id="dest-tsavo-park-dup">
+                    <div class="destination-name">Tsavo Park & Singles</div>
+                    <img src="NBA-images/Tsavo.jpg" alt="Tsavo National Park">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Explore vast wilderness in Tsavo National Park. The perfect remote
+                        safari escape offering thrilling wildlife encounters and curated singles getaways.</p>
+                </div>
+            </div>
+
+            <!-- ROW 3 (Scrolls Left) -->
+            <div class="dest-row row-left">
+                <!-- Group 1 -->
+                <div class="destination-card" id="dest-nairobi-n-park">
+                    <div class="destination-name">Nairobi N. Park</div>
+                    <img src="NBA-images/Nairobi N Park.jpg" alt="Nairobi National Park">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Wildlife minutes from the city. Nairobi National Park offers lions,
+                        rhinos, and game drives with skyline views.</p>
+                </div>
+                <div class="destination-card" id="dest-samburu">
+                    <div class="destination-name">Samburu</div>
+                    <img src="NBA-images/Samburu.jpg" alt="Samburu">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Discover raw northern Kenya wilderness and rare wildlife species in the
+                        beautiful Samburu safari reserve.</p>
+                </div>
+                <div class="destination-card" id="dest-oloiden-campsite">
+                    <div class="destination-name">Oloiden Campsite</div>
+                    <img src="NBA-images/oloiden.jpeg" alt="Oloiden Campsite">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">A serene camping paradise on the shores of Lake Oloiden. Ideal for bird
+                        watching, boat rides, and peaceful nature retreats.</p>
+                </div>
+                <div class="destination-card" id="dest-nthike-eco">
+                    <div class="destination-name">Nthike Eco-Farm</div>
+                    <img src="NBA-images/nthike.jpeg" alt="Nthike Eco-Farm retreats">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Rejuvenate your mind and body at the Nthike Eco-Farm. Experience
+                        sustainable living, farm tours, and tranquil wellness retreats.</p>
+                </div>
+                <!-- Group 2 (Duplicate for infinite scroll) -->
+                <div class="destination-card" id="dest-nairobi-n-park-dup">
+                    <div class="destination-name">Nairobi N. Park</div>
+                    <img src="NBA-images/Nairobi N Park.jpg" alt="Nairobi National Park">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Wildlife minutes from the city. Nairobi National Park offers lions,
+                        rhinos, and game drives with skyline views.</p>
+                </div>
+                <div class="destination-card" id="dest-samburu-dup">
+                    <div class="destination-name">Samburu</div>
+                    <img src="NBA-images/Samburu.jpg" alt="Samburu">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Discover raw northern Kenya wilderness and rare wildlife species in the
+                        beautiful Samburu safari reserve.</p>
+                </div>
+                <div class="destination-card" id="dest-oloiden-campsite-dup">
+                    <div class="destination-name">Oloiden Campsite</div>
+                    <img src="NBA-images/oloiden.jpeg" alt="Oloiden Campsite">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">A serene camping paradise on the shores of Lake Oloiden. Ideal for bird
+                        watching, boat rides, and peaceful nature retreats.</p>
+                </div>
+                <div class="destination-card" id="dest-nthike-eco-dup">
+                    <div class="destination-name">Nthike Eco-Farm</div>
+                    <img src="NBA-images/nthike.jpeg" alt="Nthike Eco-Farm retreats">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Rejuvenate your mind and body at the Nthike Eco-Farm. Experience
+                        sustainable living, farm tours, and tranquil wellness retreats.</p>
+                </div>
+            </div>
+
+            <!-- ROW 4 (Scrolls Right) -->
+            <div class="dest-row row-right">
+                <!-- Group 1 -->
+                <div class="destination-card" id="dest-hells-gate">
+                    <div class="destination-name">Hells Gate</div>
+                    <img src="NBA-images/HELLS GATE N. PARK.jpg" alt="Hells Gate">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Adventure park famous for cycling, hiking, dramatic cliffs and
+                        geothermal landscapes in the Rift Valley.</p>
+                </div>
+                <div class="destination-card" id="dest-mt-kenya">
+                    <div class="destination-name">Mt. Kenya</div>
+                    <img src="NBA-images/Mt Kenya.jpg" alt="Mt Kenya">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Climb Africa’s second-highest mountain and enjoy breathtaking alpine
+                        trails and scenic landscapes.</p>
+                </div>
+                <div class="destination-card" id="dest-hot-air">
+                    <div class="destination-name">Hot Air Balloon</div>
+                    <img src="NBA-images/Balloon.jpg" alt="Hot Air Balloon Rides">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Experience the magic of an African sunrise with luxury hot air balloon
+                        safaris over the majestic savannah. A truly unforgettable aerial adventure.</p>
+                </div>
+                <div class="destination-card" id="dest-group-hikes">
+                    <div class="destination-name">Group Hikes</div>
+                    <img src="NBA-images/group.jpeg" alt="Group Hikes and Vacations">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Join thrilling group hikes and vacations customized for adventure
+                        seekers. Tackle scenic trails, bond with friends, and conquer new heights together.</p>
+                </div>
+                <!-- Group 2 (Duplicate for infinite scroll) -->
+                <div class="destination-card" id="dest-hells-gate-dup">
+                    <div class="destination-name">Hells Gate</div>
+                    <img src="NBA-images/HELLS GATE N. PARK.jpg" alt="Hells Gate">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Adventure park famous for cycling, hiking, dramatic cliffs and
+                        geothermal landscapes in the Rift Valley.</p>
+                </div>
+                <div class="destination-card" id="dest-mt-kenya-dup">
+                    <div class="destination-name">Mt. Kenya</div>
+                    <img src="NBA-images/Mt Kenya.jpg" alt="Mt Kenya">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Climb Africa’s second-highest mountain and enjoy breathtaking alpine
+                        trails and scenic landscapes.</p>
+                </div>
+                <div class="destination-card" id="dest-hot-air-dup">
+                    <div class="destination-name">Hot Air Balloon</div>
+                    <img src="NBA-images/Balloon.jpg" alt="Hot Air Balloon Rides">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Experience the magic of an African sunrise with luxury hot air balloon
+                        safaris over the majestic savannah. A truly unforgettable aerial adventure.</p>
+                </div>
+                <div class="destination-card" id="dest-group-hikes-dup">
+                    <div class="destination-name">Group Hikes</div>
+                    <img src="NBA-images/group.jpeg" alt="Group Hikes and Vacations">
+                    <a href="createsafari.html.html" class="book-btn">BOOK!</a>
+                    <p class="destination-text">Join thrilling group hikes and vacations customized for adventure
+                        seekers. Tackle scenic trails, bond with friends, and conquer new heights together.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CLIENT REVIEWS ================= -->
+
+    <style>
+        .reviews-section {
+            background: #ffffff;
+            padding: 90px 60px;
+            text-align: center;
+        }
+
+        .reviews-title {
+            font-family: 'Genera', sans-serif;
+            font-size: 26px;
+            color: #f8ab3f;
+            margin-bottom: 60px;
+        }
+
+        .reviews-wrapper {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            max-width: 1200px;
+            margin: auto;
+            padding: 10px 0;
+            /* Fades the edges of the scrolling area for a smooth look */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .reviews-track {
+            display: flex;
+            width: max-content;
+            gap: 40px;
+            animation: scroll-right 40s linear infinite;
+        }
+
+        .reviews-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-right {
+            0% {
+                transform: translateX(calc(-50% - 20px));
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .review {
+            font-style: italic;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+            text-align: left;
+            width: 350px;
+            flex-shrink: 0;
+            background: #fdfdfd;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+        }
+
+        .review-author {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #f8ab3f;
+        }
+
+        .review-btn {
+            margin-top: 40px;
+            background: #262627;
+            color: #f8ab3f;
+            padding: 14px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .review-btn:hover {
+            background: #181819;
+            color: #ffffff;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(248, 171, 63, 0.4);
+        }
+    </style>
+
+
+    <section class="reviews-section">
+
+        <h2 class="reviews-title">What our clients are saying.</h2>
+
+        <div class="reviews-wrapper">
+            <div class="reviews-track">
+                <!-- Group 1 (For infinite scrolling to the right) -->
+                <div class="review">
+                    “Toured Nairobi National Park with Nature Breeze and was blown away.
+                    Seeing lions so close to the city was surreal. Great service, great guides,
+                    and a super smooth experience.”
+                    <div class="review-author">Joram Adholah</div>
+                </div>
+
+                <div class="review">
+                    “Nature Breeze Safaris gave me the most unforgettable experience at Diani!
+                    Everything was perfectly planned, from the hotel to the beach excursions.
+                    I can’t wait to book my next trip!”
+                    <div class="review-author">Macharia</div>
+                </div>
+
+                <div class="review">
+                    “Absolutely loved the Mt. Longonot hike!
+                    The team was professional, friendly and made sure we were safe and
+                    comfortable the whole time. Nature Breeze really brings adventure to life!”
+                    <div class="review-author">Solomon Kizung'u</div>
+                </div>
+
+                <div class="review">
+                    “Our family trip to the Maasai Mara was incredible! The driver knew exactly where to find the Big
+                    Five. A professional and truly bucket-list experience.”
+                    <div class="review-author">James</div>
+                </div>
+
+                <div class="review">
+                    “A seamless and deeply enriching cultural and wildlife tour. I felt completely immersed in Kenya’s
+                    beauty. Highly recommend Nature Breeze to anyone seeking authenticity.”
+                    <div class="review-author">Albert</div>
+                </div>
+
+                <div class="review">
+                    “From the booking process to the very last day of our Zanzibar getaway, the service was impeccable.
+                    Thank you for making our anniversary so magical!”
+                    <div class="review-author">Mary</div>
+                </div>
+
+                <!-- Group 2 (Duplicate for continuous scroll effect) -->
+                <div class="review">
+                    “Toured Nairobi National Park with Nature Breeze and was blown away.
+                    Seeing lions so close to the city was surreal. Great service, great guides,
+                    and a super smooth experience.”
+                    <div class="review-author">Joram Adholah</div>
+                </div>
+
+                <div class="review">
+                    “Nature Breeze Safaris gave me the most unforgettable experience at Diani!
+                    Everything was perfectly planned, from the hotel to the beach excursions.
+                    I can’t wait to book my next trip!”
+                    <div class="review-author">Macharia</div>
+                </div>
+
+                <div class="review">
+                    “Absolutely loved the Mt. Longonot hike!
+                    The team was professional, friendly and made sure we were safe and
+                    comfortable the whole time. Nature Breeze really brings adventure to life!”
+                    <div class="review-author">Solomon Kizung'u</div>
+                </div>
+
+                <div class="review">
+                    “Our family trip to the Maasai Mara was incredible! The driver knew exactly where to find the Big
+                    Five. A professional and truly bucket-list experience.”
+                    <div class="review-author">James</div>
+                </div>
+
+                <div class="review">
+                    “A seamless and deeply enriching cultural and wildlife tour. I felt completely immersed in Kenya’s
+                    beauty. Highly recommend Nature Breeze to anyone seeking authenticity.”
+                    <div class="review-author">Albert</div>
+                </div>
+
+                <div class="review">
+                    “From the booking process to the very last day of our Zanzibar getaway, the service was impeccable.
+                    Thank you for making our anniversary so magical!”
+                    <div class="review-author">Mary</div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <a class="review-btn" href="mailto:nbadeals@hotmail.com?subject=Nature Breeze Safari Review">
+            SUBMIT YOUR REVIEW
+        </a>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+
+    <footer class="footer" id="footer-section">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname">
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone">
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+            Copyright 2025 Nature Breeze Safaris
+        </div>
+
+    </footer>
+
+    <script>
+        function searchDestination() {
+            const query = document.getElementById("searchBar").value.toLowerCase().trim();
+            if (!query) return;
+
+            const destinations = [
+                { keys: ["mara", "masai"], url: "index.html.html#dest-masai-mara" },
+                { keys: ["amboseli"], url: "index.html.html#dest-amboseli" },
+                { keys: ["diani"], url: "index.html.html#dest-diani" },
+                { keys: ["samburu"], url: "index.html.html#dest-samburu" },
+                { keys: ["zanzibar"], url: "index.html.html#dest-zanzibar" },
+                { keys: ["mauritius"], url: "index.html.html#dest-mauritius" },
+                { keys: ["mt kenya", "mount kenya", "kenya"], url: "index.html.html#dest-mt-kenya" },
+                { keys: ["nairobi n park", "nairobi national"], url: "index.html.html#dest-nairobi-n-park" },
+                { keys: ["hells gate", "hells", "gate"], url: "index.html.html#dest-hells-gate" },
+                { keys: ["naivasha"], url: "signature.html.html" },
+                { keys: ["longonot"], url: "signature.html.html" },
+                { keys: ["nakuru"], url: "signature.html.html" },
+                { keys: ["tsavo"], url: "index.html.html#dest-tsavo-park" },
+                { keys: ["oloiden"], url: "index.html.html#dest-oloiden-campsite" },
+                { keys: ["nthike", "eco farm"], url: "index.html.html#dest-nthike-eco" },
+                { keys: ["giraffe"], url: "index.html.html#dest-giraffe-center" },
+                { keys: ["nairobi museum", "museum"], url: "index.html.html#dest-nairobi-museum" },
+                { keys: ["hot air", "balloon"], url: "index.html.html#dest-hot-air" },
+                { keys: ["group hikes", "hikes"], url: "index.html.html#dest-group-hikes" },
+                { keys: ["malindi"], url: "signature.html.html" },
+                { keys: ["watamu"], url: "signature.html.html" },
+                { keys: ["lamu"], url: "signature.html.html" }
+            ];
+
+            let targetUrl = "";
+
+            for (let dest of destinations) {
+                if (dest.keys.some(key => query.includes(key) || key.includes(query))) {
+                    targetUrl = dest.url;
+                    break;
+                }
+            }
+
+            if (targetUrl) {
+                if (targetUrl.startsWith("index.html.html#")) {
+                    const targetId = targetUrl.split("#")[1];
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        window.location.href = targetUrl;
+                    }
+                } else {
+                    window.location.href = targetUrl;
+                }
+            } else {
+                alert("Destination not found. Try searching for Diani, Maasai Mara, Amboseli, Malindi, Tsavo etc.");
+            }
+        }
+    </script>
+    <!-- ================= FLOATING WHATSAPP BUTTONS ================= -->
+    <style>
+        .wa-floating-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px 10px 15px;
+            border-radius: 30px;
+            font-family: "Genera", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: bounce-wa 2.5s infinite ease-in-out;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #1ebe57;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+
+        .wa-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .wa-group-btn {
+            background: #f8ab3f;
+            box-shadow: 0 4px 15px rgba(248, 171, 63, 0.4);
+            animation-delay: 1.25s;
+        }
+
+        .wa-group-btn:hover {
+            background: #e59a2f;
+            box-shadow: 0 8px 25px rgba(248, 171, 63, 0.6);
+        }
+
+        @keyframes bounce-wa {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .wa-floating-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .wa-btn {
+                padding: 8px 15px 8px 10px;
+                font-size: 12px;
+            }
+
+            .wa-btn img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+
+    <div class="wa-floating-container">
+        <a href="https://chat.whatsapp.com/LvXAEencenw5RFblz8p6RS?mode=gi_t" target="_blank"
+            class="wa-btn wa-group-btn">
+            <img src="NBA-images/WhatsApp.png" alt="WhatsApp Group">
+            Join Safari Group
+        </a>
+        <a href="https://wa.me/254757059117?text=Hello%20Alex,%20I%20am%20interested%20in%20a%20safari%20with%20Nature%20Breeze!"
+            target="_blank" class="wa-btn">
+            <img src="NBA-images/WhatsApp.png" alt="Talk to Alex">
+            Talk to Alex
+        </a>
+    </div>
+
+</body>
+
+</html>

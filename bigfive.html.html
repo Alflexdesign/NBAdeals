@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Five Safari Experience | Nature Breeze Safaris Kenya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #c68e36;
+            --primary-gold-hover: #e0a340;
+            --text-main: #f8f9fa;
+            --text-muted: #d0d0d0;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background: #ffffff;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar for cleaner look but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 4px;
+        }
+
+        .animal-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding-left: 8%;
+            margin-bottom: 20px;
+            /* Space between each full-screen section */
+        }
+
+        /* Gradient Overlay to ensure text readability */
+        .animal-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+
+
+        .carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #000;
+        }
+
+        .carousel-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out, transform 8s linear;
+            transform: scale(1);
+        }
+
+        .carousel-bg.active {
+            opacity: 1;
+            transform: scale(1.05);
+            /* Subtle zoom effect */
+        }
+
+        .content-wrapper {
+            width: 540px;
+            /* Container for the scroll animation, holds titles, glass-text, and buttons */
+            z-index: 1;
+            position: relative;
+
+            /* Initial state for scroll animation */
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .content-wrapper.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .title-container {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-family: "Genera Grotesk", 'Inter', sans-serif;
+            font-size: 56px;
+            color: var(--primary-gold);
+            margin: 0;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .swahili {
+            font-family: "Abbeville Demo", serif;
+            color: #fff;
+            margin: 0;
+            font-size: 28px;
+            font-style: italic;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        .glass-text {
+            padding: 30px;
+            background: rgba(20, 20, 20, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            margin-bottom: 30px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        .explore-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #a67225 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 20px rgba(198, 142, 54, 0.3);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(198, 142, 54, 0.4);
+            background: linear-gradient(135deg, var(--primary-gold-hover) 0%, var(--primary-gold) 100%);
+        }
+
+        .explore-btn::after {
+            content: '→';
+            margin-left: 10px;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .explore-btn:hover::after {
+            transform: translateX(5px);
+        }
+
+        .intro-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: left;
+            padding: 120px 10% 150px;
+            background: #ffffff;
+            color: #111111;
+        }
+
+        .intro-title {
+            font-family: "Genera Grotesk", 'Inter', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin: 0 0 25px 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .intro-description {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 900px;
+            color: #333333;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .animal-section {
+                padding: 0 5%;
+                justify-content: center;
+            }
+
+            .content-wrapper {
+                width: 100%;
+            }
+
+            .title {
+                font-size: 42px;
+            }
+
+            .swahili {
+                font-size: 22px;
+            }
+
+            .intro-section {
+                padding: 100px 5% 100px;
+            }
+
+            .intro-title {
+                font-size: 42px;
+            }
+
+            .intro-description {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html.html">HOME</a></li>
+            <li><a href="index.html.html#about-section">ABOUT</a></li>
+            <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+            <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+            <li><a href="signature.html.html">DESTINATIONS</a></li>
+            <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+        </ul>
+
+        <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html.html">Home</a>
+            <a href="index.html.html#about-section">About</a>
+            <a href="bigfive.html.html">The Big Five</a>
+            <a href="signature.html.html">Signature Safari</a>
+            <a href="signature.html.html">Destinations</a>
+            <a href="index.html.html#footer-section">Contact</a>
+        </div>
+    </nav>
+
+    <script>
+        (function () {
+            const hamburger = document.getElementById("hamburger");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener("click", function () {
+                    hamburger.classList.toggle("active");
+                    mobileMenu.style.display =
+                        mobileMenu.style.display === "flex" ? "none" : "flex";
+                });
+            }
+        })();
+    </script>
+    <!-- ======================================== -->
+
+    <!-- INTRO SECTION -->
+    <section class="intro-section">
+        <h1 class="intro-title">East Africa's Big Five</h1>
+        <p class="intro-description">
+            Kenya is globally renowned as the ultimate safari destination, offering unparalleled opportunities to
+            witness the legendary <strong>Big Five</strong> in their natural habitat. Originally coined by early
+            wildlife explorers to describe the most challenging animals to track on foot, the term now represents the
+            absolute pinnacle of wildlife conservation and photographic safaris in Africa. Embark on an unforgettable
+            journey with Nature Breeze Safaris to discover the Lion, Elephant, Leopard, Buffalo, and Rhino roaming
+            freely across Kenya's spectacular savannah ecosystems.
+        </p>
+    </section>
+
+    <!-- LION -->
+    <section class="animal-section">
+        <div class="carousel lion-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Lion</h1>
+                <h2 class="swahili">Simba</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    The African lion dominates Kenya’s legendary savannah landscapes with unmatched strength and
+                    authority.
+                    Across the sweeping plains of Maasai Mara, Tsavo, and Amboseli, lions stand as the ultimate symbol
+                    of
+                    wilderness power and safari adventure. Witnessing lions in the wild is one of the most thrilling
+                    safari
+                    experiences in Africa. At sunrise and sunset, prides move silently through tall golden grass,
+                    coordinating hunts with remarkable intelligence and teamwork. Their powerful roars can echo across
+                    the
+                    savannah for up to eight kilometers, announcing their dominance over the African plains.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <!-- ELEPHANT -->
+    <section class="animal-section">
+        <div class="carousel elephant-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Elephant</h1>
+                <h2 class="swahili">Tembo</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    The African elephant is the largest land animal on Earth and one of the most awe-inspiring sights on
+                    any
+                    Kenya safari. Towering above the savannah, these gentle giants move gracefully through iconic
+                    landscapes
+                    like Amboseli National Park, where massive elephant herds roam beneath the shadow of Mount
+                    Kilimanjaro.
+                    Elephants possess remarkable intelligence and emotional depth. Their family groups are led by wise
+                    matriarchs who guide generations across ancient migration routes.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <!-- LEOPARD -->
+    <section class="animal-section">
+        <div class="carousel leopard-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Leopard</h1>
+                <h2 class="swahili">Chui</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    Elusive, powerful, and breathtakingly beautiful, the leopard is the silent phantom of the African
+                    wilderness. Known for its stealth and incredible strength, this solitary predator moves through the
+                    savannah like a shadow. Leopards are masters of camouflage. Their golden coats patterned with
+                    rosettes
+                    allow them to blend perfectly into trees and tall grasslands. Many safari guests first spot a
+                    leopard
+                    resting high in an acacia tree, protecting its prey from scavengers below.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <!-- BUFFALO -->
+    <section class="animal-section">
+        <div class="carousel buffalo-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Buffalo</h1>
+                <h2 class="swahili">Nyati</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    The African buffalo is one of the most powerful animals of the savannah and an essential member of
+                    the
+                    legendary Big Five. Known for its unpredictable strength and formidable horns, the buffalo commands
+                    respect across Africa’s wilderness. Massive herds can number in the hundreds, creating spectacular
+                    scenes across Kenya’s open plains and riverbanks. Their curved horns form a natural defensive shield
+                    protecting the herd against predators such as lions.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <!-- RHINO -->
+    <section class="animal-section">
+        <div class="carousel rhino-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Rhino</h1>
+                <h2 class="swahili">Kifaru</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    The rhinoceros represents one of Africa’s greatest conservation achievements. Powerful yet
+                    endangered,
+                    rhinos are among the most extraordinary animals to encounter on safari. Kenya is one of the few
+                    countries where both black and white rhinos can be seen in protected sanctuaries and national parks.
+                    Their prehistoric appearance and immense strength create a powerful presence across the African
+                    wilderness.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <!-- EAGLE -->
+    <section class="animal-section">
+        <div class="carousel eagle-carousel"></div>
+        <div class="content-wrapper">
+            <div class="title-container">
+                <h1 class="title">Eagle</h1>
+                <h2 class="swahili">Tai</h2>
+            </div>
+
+            <div class="glass-text">
+                <p>
+                    Why does Nature Breeze Safaris use the eagle as its symbol? Because true exploration begins above
+                    the
+                    horizon. While the Big Five dominate the land, the eagle owns the sky. Riding effortlessly on
+                    African
+                    winds, an eagle sees the savannah from a perspective no other creature can. At Nature Breeze
+                    Safaris,
+                    the eagle represents freedom, clarity, and the spirit of exploration. Discover Africa the way an
+                    eagle
+                    sees it — vast, wild, and breathtakingly beautiful.
+                </p>
+            </div>
+
+            <a href="booking.html.html" class="explore-btn">Explore With Us</a>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced Carousel Function with Crossfade & Ken Burns (Zoom) effect
+        function createCarousel(selector, images) {
+            const container = document.querySelector(selector);
+            if (!container) return;
+
+            // Create image divs
+            const bgElements = images.map((src, index) => {
+                const div = document.createElement('div');
+                div.className = 'carousel-bg';
+                div.style.backgroundImage = `url('${src}')`;
+                if (index === 0) div.classList.add('active'); // First image active immediately
+                container.appendChild(div);
+                return div;
+            });
+
+            if (bgElements.length <= 1) return; // No need to animate single images
+
+            let currentIndex = 0;
+            setInterval(() => {
+                // Remove active from current
+                bgElements[currentIndex].classList.remove('active');
+
+                // Move to next
+                currentIndex = (currentIndex + 1) % bgElements.length;
+
+                // Add active to new
+                bgElements[currentIndex].classList.add('active');
+            }, 5000); // 5 seconds per image
+        }
+
+        // Initialize Carousels
+        createCarousel(".lion-carousel", [
+            "NBA-images/Lion 1.jpg",
+            "NBA-images/Lion 2.jpg",
+            "NBA-images/Lion 3.jpg",
+            "NBA-images/Lion 4.jpg",
+            "NBA-images/Lion 5.jpg"
+        ]);
+
+        createCarousel(".elephant-carousel", [
+            "NBA-images/Elephant 1.jpg",
+            "NBA-images/Elephant 2.jpg",
+            "NBA-images/Elephant 3.jpg",
+            "NBA-images/Elephant 4.jpg",
+            "NBA-images/Elephant 5.jpg"
+        ]);
+
+        createCarousel(".leopard-carousel", [
+            "NBA-images/Leopard 1.jpg",
+            "NBA-images/Leopard 2.jpg",
+            "NBA-images/Leopard 3.jpg",
+            "NBA-images/Leopard 4.jpg",
+            "NBA-images/Leopard 5.jpg"
+        ]);
+
+        createCarousel(".buffalo-carousel", [
+            "NBA-images/Buffallo 1.jpg",
+            "NBA-images/Buffallo 2.jpg",
+            "NBA-images/Buffallo 3.jpg",
+            "NBA-images/Buffallo 4.jpg",
+            "NBA-images/Buffallo 5.jpg"
+        ]);
+
+        createCarousel(".rhino-carousel", [
+            "NBA-images/Rhino 1.jpg",
+            "NBA-images/Rhino 2.jpg",
+            "NBA-images/Rhino 3.jpg",
+            "NBA-images/Rhino 4.jpg",
+            "NBA-images/Rhino 5.jpg"
+        ]);
+
+        createCarousel(".eagle-carousel", [
+            "NBA-images/Eagle 1.jpg",
+            "NBA-images/Eagle 2.jpg",
+            "NBA-images/Eagle 3.jpg",
+            "NBA-images/Eagle 4.jpg",
+            "NBA-images/Eagle 5.jpg"
+        ]);
+
+        // Intersection Observer for Scroll Animations (Content wrapping sliding up)
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.25 // Trigger when 25% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: Unobserve after animating once to keep it visible
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: remove visible class if we want it to animate again when scrolling up
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.content-wrapper').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+
+    <!-- ================= FOOTER ================= -->
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" class="footer-form" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname">
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone">
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Copyright 2025 Nature Breeze Safaris
+        </div>
+
+    </footer>
+    <!-- ======================================== -->
+
+    <!-- ================= FLOATING WHATSAPP BUTTONS ================= -->
+    <style>
+        .wa-floating-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px 10px 15px;
+            border-radius: 30px;
+            font-family: "Genera", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: bounce-wa 2.5s infinite ease-in-out;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #1ebe57;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+
+        .wa-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .wa-group-btn {
+            background: #f8ab3f;
+            box-shadow: 0 4px 15px rgba(248, 171, 63, 0.4);
+            animation-delay: 1.25s;
+        }
+
+        .wa-group-btn:hover {
+            background: #e59a2f;
+            box-shadow: 0 8px 25px rgba(248, 171, 63, 0.6);
+        }
+
+        @keyframes bounce-wa {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .wa-floating-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .wa-btn {
+                padding: 8px 15px 8px 10px;
+                font-size: 12px;
+            }
+
+            .wa-btn img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+
+    <div class="wa-floating-container">
+        <a href="https://chat.whatsapp.com/LvXAEencenw5RFblz8p6RS?mode=gi_t" target="_blank"
+            class="wa-btn wa-group-btn">
+            <img src="NBA-images/WhatsApp.png" alt="WhatsApp Group">
+            Join Safari Group
+        </a>
+        <a href="https://wa.me/254757059117?text=Hello%20Alex,%20I%20am%20interested%20in%20a%20safari%20with%20Nature%20Breeze!"
+            target="_blank" class="wa-btn">
+            <img src="NBA-images/WhatsApp.png" alt="Talk to Alex">
+            Talk to Alex
+        </a>
+    </div>
+
+</body>
+
+</html>

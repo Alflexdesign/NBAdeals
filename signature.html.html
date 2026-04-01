@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Signature Safari Experience</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f4f1ea;
+        }
+
+        /* HEADINGS */
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #d28c2c;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 18px;
+        }
+
+        /* =========================
+   PREMIUM CAROUSEL SECTION
+========================= */
+
+        .carousel-section {
+            padding: 80px 8%;
+            background: #fffefe;
+            color: white;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform .6s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            filter: brightness(.7);
+        }
+
+        /* GLASS CARD */
+
+        .slide-content {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            max-width: 500px;
+
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .slide-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .slide-content p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* BUTTON */
+
+        .book-btn {
+            display: inline-block;
+            margin-top: 15px;
+
+            background: linear-gradient(45deg, #ff3c00, #ff9900);
+
+            padding: 12px 25px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+
+            border-radius: 6px;
+
+            transition: .3s;
+        }
+
+        .book-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 120, 0, .8);
+        }
+
+        /* NAV BUTTONS */
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            background: rgba(0, 0, 0, .5);
+            border: none;
+            color: white;
+
+            font-size: 28px;
+
+            padding: 10px 18px;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* =========================
+   EXISTING NAIROBI GRID
+========================= */
+
+        .signature-safaris {
+            padding: 80px 8%;
+        }
+
+        .safari-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .safari-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: 0.4s;
+        }
+
+        .safari-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .safari-img {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .safari-img img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: .5s;
+        }
+
+        .safari-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .safari-text {
+            padding: 20px;
+        }
+
+        .safari-text h3 {
+            color: #d28c2c;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .safari-text p {
+            line-height: 1.6;
+            color: #444;
+            font-size: 15px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:900px) {
+
+            .safari-container {
+                grid-template-columns: 1fr;
+            }
+
+            .slide-content {
+                left: 20px;
+                right: 20px;
+            }
+
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #333;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #d4a24c;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html.html">HOME</a></li>
+            <li><a href="index.html.html#about-section">ABOUT</a></li>
+            <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+            <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+            <li><a href="signature.html.html">DESTINATIONS</a></li>
+            <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+        </ul>
+
+        <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html.html">Home</a>
+            <a href="index.html.html#about-section">About</a>
+            <a href="bigfive.html.html">The Big Five</a>
+            <a href="signature.html.html">Signature Safari</a>
+            <a href="signature.html.html">Destinations</a>
+            <a href="index.html.html#footer-section">Contact</a>
+        </div>
+    </nav>
+
+    <script>
+        (function () {
+            const hamburger = document.getElementById("hamburger");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener("click", function () {
+                    hamburger.classList.toggle("active");
+                    mobileMenu.style.display =
+                        mobileMenu.style.display === "flex" ? "none" : "flex";
+                });
+            }
+        })();
+    </script>
+    <!-- ======================================== -->
+
+    <!-- =========================
+     KENYA EXPEDITIONS CAROUSEL
+========================= -->
+
+    <section class="carousel-section">
+
+        <h2 class="section-title">Kenya Expeditions</h2>
+        <p class="section-subtitle">Legendary Safari & Coastal Experiences</p>
+
+        <div class="carousel-container">
+
+            <div class="carousel-track">
+
+                <!-- MASAI MARA -->
+                <div class="carousel-slide" id="masai-mara">
+                    <img src="NBA-images/mara.jpg">
+                    <div class="slide-content">
+                        <h3>3 Days Masai Mara Safari</h3>
+                        <p>
+                            Embark on the ultimate Masai Mara safari adventure, a true jewel of Kenyan wildlife. Witness
+                            the legendary plains that host the world-famous Great Wildebeest Migration. Spot the
+                            majestic Big Five—lions, leopards, rhinos, elephants, and cape buffaloes—while enjoying
+                            unforgettable wildlife photography, authentic Maasai cultural encounters, and breathtaking
+                            hot air balloon safaris floating over the scenic Mara River. An unparalleled African safari
+                            experience awaits.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- AMBOSELI -->
+                <div class="carousel-slide" id="amboseli">
+                    <img src="NBA-images/Amboseli photo.jpg">
+                    <div class="slide-content">
+                        <h3>3 Days Amboseli Safari</h3>
+                        <p>
+                            Experience Amboseli National Park, renowned as the Land of Giants, where massive elephant
+                            herds roam freely beneath the breathtaking, iconic snow-capped peaks of Mount Kilimanjaro.
+                            Explore diverse habitats including lush wetlands, expansive dry lake beds, and woodlands
+                            teeming with incredible birdlife. This premium safari destination offers some of the most
+                            spectacular wildlife viewing and landscape photography opportunities in all of Kenya.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- NAIVASHA -->
+                <div class="carousel-slide">
+                    <img src="NBA-images/lake vasha.jpg">
+                    <div class="slide-content">
+                        <h3>3 Days Lake Naivasha</h3>
+                        <p>
+                            Enjoy a tranquil Rift Valley escape at Lake Naivasha, a shimmering freshwater haven. Delight
+                            in guided boat safaris floating among resident pods of hippos and discover a birdwatching
+                            paradise boasting over 400 vibrant species. Combine relaxation with thrilling adventure
+                            hikes through the dramatic gorges and towering terrestrial cliffs of the nearby Hell's Gate
+                            National Park, one of Kenya's most unique geological wonders.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- NAKURU -->
+                <div class="carousel-slide">
+                    <img src="NBA-images/lake naks.jpg">
+                    <div class="slide-content">
+                        <h3>2 Days Lake Nakuru</h3>
+                        <p>
+                            Discover the vibrant beauty of Lake Nakuru, world-famous for the breathtaking spectacle of
+                            thousands of vivid pink flamingos beautifully painting the alkaline lake shores. Go on an
+                            exhilarating game drive to spot majestic black and white rhinos thriving in Kenya’s premier
+                            rhino conservation sanctuary. This picturesque, wildlife-rich destination provides a perfect
+                            compact safari packed with exceptional ecological diversity and thrilling natural
+                            encounters.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- TSAVO EAST -->
+                <div class="carousel-slide">
+                    <img src="NBA-images/tsavo east.jpg">
+                    <div class="slide-content">
+                        <h3>3 Days Tsavo East</h3>
+                        <p>
+                            Journey into the vast expanses of Tsavo East National Park, Kenya’s largest and oldest
+                            wilderness sanctuary. Known globally for its legendary "red elephants" dusted with the
+                            region's rich volcanic soil, Tsavo offers dramatic, untamed landscapes. Explore iconic
+                            landmarks such as the cascading Lugard Falls and the monumental Yatta Plateau, experiencing
+                            the ultimate off-the-beaten-path safari adventure full of raw, majestic African nature.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- DIANI -->
+                <div class="carousel-slide" id="diani-beach">
+                    <img src="NBA-images/diani beach photo.jpg">
+                    <div class="slide-content">
+                        <h3>4 Days Diani Beach</h3>
+                        <p>
+                            Escape to the pristine shores of Diani Beach, consistently ranked among Africa’s absolute
+                            best coastal destinations. Relax on powdery white sands lined with lush palm trees and
+                            bathed by crystal-clear, warm turquoise waters. Indulge in luxury oceanfront resorts,
+                            thrilling snorkeling and scuba diving adventures in vibrant coral reefs, world-class
+                            kitesurfing, and rich, lively coastal nightlife under the starlit Indian Ocean sky.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- WATAMU -->
+                <div class="carousel-slide">
+                    <img src="NBA-images/watamu.jpg">
+                    <div class="slide-content">
+                        <h3>2 Days Watamu Marine Park</h3>
+                        <p>
+                            Immerse yourself in the unspoiled tropical beauty of Watamu Marine National Park. Explore
+                            spectacular coral gardens teeming with colorful marine life, pristine snorkeling reefs, and
+                            tranquil coastal waters perfect for eco-friendly adventures. Journey back in time exploring
+                            the mysterious, ancient Gedi ruins tucked within lush forests, or enjoy peaceful mangrove
+                            kayaking in one of Kenya’s most breathtaking and ecologically diverse marine paradises.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+                <!-- MALINDI -->
+                <div class="carousel-slide">
+                    <img src="NBA-images/Malindi beach.jpg">
+                    <div class="slide-content">
+                        <h3>3 Days Malindi Coast</h3>
+                        <p>
+                            Experience the enchanting blend of rich Swahili heritage and vibrant Italian coastal culture
+                            in stunning Malindi. Uncover centuries of history by visiting the historic Vasco da Gama
+                            pillar and exploring bustling local markets filled with authentic crafts and spices. Relax
+                            on sun-drenched, palm-fringed beaches and dive into pristine, thriving marine parks, making
+                            Malindi an unforgettable destination for culture enthusiasts and beach lovers alike.
+                        </p>
+                        <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="nav-btn prev">&#10094;</button>
+            <button class="nav-btn next">&#10095;</button>
+
+        </div>
+
+        <div id="zanzibar"></div>
+        <div id="maldives"></div>
+    </section>
+
+    <!-- =========================
+     YOUR EXISTING NAIROBI GRID
+========================= -->
+
+    <section class="signature-safaris">
+
+        <h2 class="section-title">Signature Safari Experience</h2>
+        <p class="section-subtitle">Around Nairobi</p>
+
+        <div class="safari-container">
+
+            <!-- Nairobi Park -->
+            <div class="safari-card">
+                <div class="safari-img">
+                    <img src="NBA-images/nairobi park.jpg">
+                    <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                </div>
+                <div class="safari-text">
+                    <h3>Nairobi National Park</h3>
+                    <p>
+                        Discover Nairobi National Park, the only wildlife park in the world uniquely located within a
+                        bustling capital city. Experience the surreal thrill of watching wild lions, endangered rhinos,
+                        and towering giraffes roaming freely against the striking backdrop of Nairobi’s modern city
+                        skyline. A perfect, quick escape offering spectacular game drives, rich grass plains, and an
+                        unforgettable introduction to Kenya’s unmatched wildlife heritage.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Museum -->
+            <div class="safari-card">
+                <div class="safari-img">
+                    <img src="NBA-images/museum.jpg">
+                    <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                </div>
+                <div class="safari-text">
+                    <h3>National Museum</h3>
+                    <p>
+                        Immerse yourself in Kenya’s rich, multifaceted heritage at the Nairobi National Museum. Delve
+                        into fascinating exhibits taking you through millions of years of human evolution with rare
+                        fossil discoveries. Explore captivating tribal culture galleries showcasing diverse Kenyan
+                        traditions, marvel at comprehensive wildlife exhibits, and browse stunning contemporary African
+                        art portraying the dynamic history, culture, and incredible natural diversity of the country.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Giraffe -->
+            <div class="safari-card">
+                <div class="safari-img">
+                    <img src="NBA-images/Giraffe.jpg">
+                    <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                </div>
+                <div class="safari-text">
+                    <h3>Giraffe Centre</h3>
+                    <p>
+                        Get up close and personal with nature at the iconic Giraffe Centre in Nairobi. Enjoy the
+                        unforgettable, hands-on experience of hand-feeding and interacting with the rare, endangered
+                        Rothschild giraffes from a raised wooden observation platform. Learn about vital wildlife
+                        conservation and breeding efforts dedicated to protecting these majestic, gentle giants and
+                        their natural habitats across Kenya.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Elephant -->
+            <div class="safari-card">
+                <div class="safari-img">
+                    <img src="NBA-images/Sheldrick.jpg">
+                    <a href="createsafari.html.html" class="book-btn">BOOK NOW</a>
+                </div>
+                <div class="safari-text">
+                    <h3>Sheldrick Elephant Orphanage</h3>
+                    <p>
+                        Witness the heartwarming and inspiring conservation work at the David Sheldrick Wildlife Trust
+                        Elephant Orphanage. Watch rescued and orphaned baby elephants and rhinos being lovingly
+                        rehabilitated, fed, and cared for by dedicated keepers. Learn about the crucial anti-poaching
+                        efforts and the complex journey of successfully reintroducing these incredibly intelligent and
+                        magnificent creatures back into their natural wild habitats.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script>
+
+        /* CAROUSEL */
+
+        const track = document.querySelector('.carousel-track')
+        const slides = document.querySelectorAll('.carousel-slide')
+
+        let index = 0
+
+        function moveSlide(dir) {
+
+            index += dir
+
+            if (index < 0) index = slides.length - 1
+            if (index >= slides.length) index = 0
+
+            track.style.transform = `translateX(-${index * 100}%)`
+
+        }
+
+        document.querySelector('.next').onclick = () => moveSlide(1)
+        document.querySelector('.prev').onclick = () => moveSlide(-1)
+
+        /* AUTOPLAY */
+
+        setInterval(() => moveSlide(1), 6000)
+
+        /* BOOK BUTTON */
+
+        document.querySelectorAll(".book-btn").forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                alert("Booking system coming soon!")
+
+            })
+
+        })
+
+    </script>
+
+    <!-- ================= FOOTER ================= -->
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" class="footer-form" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname">
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone">
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Copyright 2025 Nature Breeze Safaris
+        </div>
+
+    </footer>
+    <!-- ======================================== -->
+
+    <!-- ================= FLOATING WHATSAPP BUTTONS ================= -->
+    <style>
+        .wa-floating-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px 10px 15px;
+            border-radius: 30px;
+            font-family: "Genera", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: bounce-wa 2.5s infinite ease-in-out;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #1ebe57;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+
+        .wa-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .wa-group-btn {
+            background: #f8ab3f;
+            box-shadow: 0 4px 15px rgba(248, 171, 63, 0.4);
+            animation-delay: 1.25s;
+        }
+
+        .wa-group-btn:hover {
+            background: #e59a2f;
+            box-shadow: 0 8px 25px rgba(248, 171, 63, 0.6);
+        }
+
+        @keyframes bounce-wa {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .wa-floating-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .wa-btn {
+                padding: 8px 15px 8px 10px;
+                font-size: 12px;
+            }
+
+            .wa-btn img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+
+    <div class="wa-floating-container">
+        <a href="https://chat.whatsapp.com/LvXAEencenw5RFblz8p6RS?mode=gi_t" target="_blank"
+            class="wa-btn wa-group-btn">
+            <img src="NBA-images/WhatsApp.png" alt="WhatsApp Group">
+            Join Safari Group
+        </a>
+        <a href="https://wa.me/254757059117?text=Hello%20Alex,%20I%20am%20interested%20in%20a%20safari%20with%20Nature%20Breeze!"
+            target="_blank" class="wa-btn">
+            <img src="NBA-images/WhatsApp.png" alt="Talk to Alex">
+            Talk to Alex
+        </a>
+    </div>
+
+</body>
+
+</html>

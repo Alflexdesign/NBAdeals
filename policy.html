@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Policies | Nature Breeze Safaris</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* HEADER */
+
+        .policy-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('NBA-images/policy.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .policy-header h1 {
+            font-size: 42px;
+            letter-spacing: 1px;
+            color: #d48b26;
+            font-family: 'Genera grotesk', sans-serif;
+        }
+
+        .policy-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* CONTENT */
+
+        .policy-container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 60px 20px;
+        }
+
+        /* ACCORDION */
+
+        .policy-box {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, border-left 0.3s ease, box-shadow 0.3s ease;
+            border-left: 0px solid #d48b26;
+        }
+
+        .policy-box:hover {
+            transform: translateX(8px);
+            border-left: 6px solid #d48b26;
+            box-shadow: 0 5px 15px rgba(212, 139, 38, 0.2);
+        }
+
+        .policy-title {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .policy-title:hover {
+            background: #f2f2f2;
+            color: #d48b26;
+        }
+
+        .policy-content {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 20px;
+            transition: max-height 0.4s ease;
+        }
+
+        .policy-content p {
+            margin: 15px 0;
+        }
+
+        .policy-content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .policy-content li {
+            margin-bottom: 8px;
+        }
+
+        /* ICON */
+
+        .icon {
+            font-size: 20px;
+            transition: 0.3s;
+            color: #d48b26;
+        }
+
+        /* FOOTER */
+
+        .policy-footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html.html">HOME</a></li>
+            <li><a href="index.html.html#about-section">ABOUT</a></li>
+            <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+            <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+            <li><a href="signature.html.html">DESTINATIONS</a></li>
+            <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+        </ul>
+
+        <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html.html">Home</a>
+            <a href="index.html.html#about-section">About</a>
+            <a href="bigfive.html.html">The Big Five</a>
+            <a href="signature.html.html">Signature Safari</a>
+            <a href="signature.html.html">Destinations</a>
+            <a href="index.html.html#footer-section">Contact</a>
+        </div>
+    </nav>
+
+    <script>
+        (function () {
+            const hamburger = document.getElementById("hamburger");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener("click", function () {
+                    hamburger.classList.toggle("active");
+                    mobileMenu.style.display =
+                        mobileMenu.style.display === "flex" ? "none" : "flex";
+                });
+            }
+        })();
+    </script>
+    <!-- ======================================== -->
+
+    <header class="policy-header">
+        <h1>Safari Booking Policies</h1>
+        <p>Transparent policies designed to protect our travelers and build lifelong safari relationships.</p>
+    </header>
+
+    <section class="policy-container">
+
+        <!-- BOOKING POLICY -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Booking Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>All safari bookings with Nature Breeze Safaris are subject to confirmation and availability.</p>
+
+                <ul>
+                    <li>A deposit of <b>30% of the total safari cost</b> is required to confirm a reservation.</li>
+                    <li>The remaining balance must be paid <b>30 days before the safari start date.</b></li>
+                    <li>If a safari is booked within 30 days of travel, <b>full payment is required at booking.</b></li>
+                    <li>Bookings are confirmed once deposit payment and confirmation invoice are issued.</li>
+                    <li>All bookings must be made in writing via email or through our official booking platform.</li>
+                </ul>
+
+                <p>This structure allows us to secure lodges, park permits, and transport arrangements for your safari.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT POLICY -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Payment Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>We aim to make payments convenient for international and local travelers.</p>
+
+                <ul>
+                    <li>Payments can be made via bank transfer, credit/debit card, or mobile payment options.</li>
+                    <li>International travelers may pay in USD or EUR.</li>
+                    <li>Local travelers may pay via M-Pesa or bank transfer.</li>
+                    <li>All bank transfer charges are the responsibility of the client.</li>
+                    <li>Prices may change due to government park fee adjustments or currency fluctuations until booking
+                        is confirmed.</li>
+                </ul>
+
+                <p>Once full payment is received, a final safari itinerary and travel confirmation will be issued.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CANCELLATION POLICY -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Cancellation & Refund Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>We understand that travel plans can change. Our cancellation policy is designed to remain fair while
+                    covering costs already committed to lodges, transport, and park reservations.</p>
+
+                <ul>
+
+                    <li><b>60 days or more before safari</b> – Full refund minus deposit and third-party reservation
+                        fees.</li>
+
+                    <li><b>30–59 days before safari</b> – 50% refund of total safari cost.</li>
+
+                    <li><b>Less than 30 days before safari</b> – No refund due to commitments already made.</li>
+
+                    <li><b>No-show</b> – 100% cancellation fee.</li>
+
+                </ul>
+
+                <p>Refunds are processed within <b>14–30 business days</b> using the original payment method.</p>
+
+                <p>We strongly recommend purchasing <b>travel insurance</b> to cover unexpected cancellations.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOKING AMENDMENT -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Booking Amendment Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>We understand plans can evolve. Whenever possible we will assist in adjusting your safari itinerary.
+                </p>
+
+                <ul>
+
+                    <li>Changes requested <b>more than 30 days before departure</b> are generally free of charge.</li>
+
+                    <li>Changes within <b>30 days of departure</b> may incur administrative or accommodation adjustment
+                        fees.</li>
+
+                    <li>All amendments are subject to lodge availability.</li>
+
+                    <li>If a requested change increases costs (e.g., upgraded accommodation), the difference will apply.
+                    </li>
+
+                </ul>
+
+                <p>Our team will always try to find flexible solutions for our travelers.</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRIVACY POLICY -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Privacy Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>We respect the privacy of our travelers and are committed to protecting personal information.</p>
+
+                <ul>
+
+                    <li>Personal information collected includes name, contact information, passport details, and travel
+                        preferences.</li>
+
+                    <li>This information is used strictly to arrange safari bookings, accommodations, and
+                        transportation.</li>
+
+                    <li>We do not sell or share your personal data with third parties except for travel arrangements.
+                    </li>
+
+                    <li>Payment information is processed through secure payment systems.</li>
+
+                    <li>Travel photos may be used for marketing only with traveler permission.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- LIABILITY -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Liability & Responsibility Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>Nature Breeze Safaris acts as an intermediary between travelers and third-party service providers
+                    such as lodges, airlines, and transport providers.</p>
+
+                <ul>
+
+                    <li>We are not liable for delays, accidents, natural disasters, or government actions beyond our
+                        control.</li>
+
+                    <li>Safari itineraries may change due to weather, wildlife movement, or operational conditions.</li>
+
+                    <li>In such cases, equivalent services will be provided whenever possible.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORCE MAJEURE -->
+
+        <div class="policy-box">
+
+            <div class="policy-title">
+                Force Majeure Policy
+                <span class="icon">+</span>
+            </div>
+
+            <div class="policy-content">
+
+                <p>Force majeure refers to unforeseen circumstances beyond our control including:</p>
+
+                <ul>
+
+                    <li>Natural disasters</li>
+                    <li>Pandemics</li>
+                    <li>Political unrest</li>
+                    <li>Government restrictions</li>
+                    <li>Airline disruptions</li>
+
+                </ul>
+
+                <p>In such cases, we will prioritize rescheduling your safari or issuing travel credit for future use.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" class="footer-form" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname" required>
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname" required>
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone" required>
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email" required
+                        pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                        title="Please provide a valid complete email address (e.g. user@gmail.com)">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Copyright 2025 Nature Breeze Safaris
+        </div>
+
+    </footer>
+    <!-- ======================================== -->
+
+
+    <script>
+
+        const titles = document.querySelectorAll(".policy-title");
+
+        titles.forEach(title => {
+
+            title.addEventListener("click", () => {
+
+                const content = title.nextElementSibling;
+                const icon = title.querySelector(".icon");
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    icon.innerHTML = "+";
+                }
+                else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.innerHTML = "−";
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

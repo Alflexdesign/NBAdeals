@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Safari | Nature Breeze Safaris</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* BACKGROUND CAROUSEL */
+        .bg-carousel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1.5s ease-in-out;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(3px);
+            /* mild blur for background */
+            -webkit-backdrop-filter: blur(3px);
+        }
+
+        /* GLASSMORPHISM CONTAINER */
+        .container {
+            width: calc(100% - 40px);
+            max-width: 650px;
+            margin: 120px auto 60px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border-radius: 15px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        select,
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        select:focus,
+        input:focus,
+        textarea:focus {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #f8ab3f;
+            box-shadow: 0 0 8px rgba(248, 171, 63, 0.5);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #ddd;
+        }
+
+        select option {
+            background: #222;
+            /* options cannot be transparent elegantly across browsers */
+            color: #fff;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ANIMATED BUTTONS */
+        button {
+            padding: 12px 28px;
+            border: none;
+            background: linear-gradient(45deg, #f8ab3f, #d48a25);
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(248, 171, 63, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: "";
+            background: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            transform: skewX(-45deg);
+            transition: 0.5s;
+        }
+
+        button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(248, 171, 63, 0.6);
+        }
+
+        button:hover::after {
+            left: 100%;
+        }
+
+        /* Right align Next button if Previous doesn't exist */
+        .buttons button:only-child,
+        .buttons .btn-right {
+            margin-left: auto;
+        }
+
+        .review-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .review-box p {
+            margin: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .review-box p:last-child {
+            border-bottom: none;
+        }
+
+        .thank-you-msg {
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .thank-you-msg h2 {
+            color: #f8ab3f;
+            font-size: 32px;
+        }
+    </style>
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) || (e.ctrlKey && ['U', 'u'].includes(e.key))) return false;
+        };
+    </script>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <style>
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: #ffffff;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links li::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background: #f8ab3f;
+            transition: 0.3s ease;
+        }
+
+        .nav-links li:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: #f8ab3f;
+            padding: 10px 20px;
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Genera', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e59a2f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(248, 171, 63, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #222;
+            transition: 0.4s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: absolute;
+            top: 80px;
+            right: 60px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: #333;
+            font-family: 'Genera', sans-serif;
+            font-size: 14px;
+        }
+
+        @media(max-width:900px) {
+            .nav-links {
+                display: none;
+            }
+
+            .cta-btn {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+    </style>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html.html">HOME</a></li>
+            <li><a href="index.html.html#about-section">ABOUT</a></li>
+            <li><a href="bigfive.html.html">THE BIG FIVE</a></li>
+            <li><a href="signature.html.html">SIGNATURE SAFARI</a></li>
+            <li><a href="signature.html.html">DESTINATIONS</a></li>
+            <li><a href="index.html.html#footer-section">CONTACT US</a></li>
+        </ul>
+
+        <a href="booking.html.html" class="cta-btn">Customize Your Safari</a>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html.html">Home</a>
+            <a href="index.html.html#about-section">About</a>
+            <a href="bigfive.html.html">The Big Five</a>
+            <a href="signature.html.html">Signature Safari</a>
+            <a href="signature.html.html">Destinations</a>
+            <a href="index.html.html#footer-section">Contact</a>
+        </div>
+    </nav>
+
+    <script>
+        (function () {
+            const hamburger = document.getElementById("hamburger");
+            const mobileMenu = document.getElementById("mobileMenu");
+
+            if (hamburger && mobileMenu) {
+                hamburger.addEventListener("click", function () {
+                    hamburger.classList.toggle("active");
+                    mobileMenu.style.display =
+                        mobileMenu.style.display === "flex" ? "none" : "flex";
+                });
+            }
+        })();
+    </script>
+    <!-- ======================================== -->
+
+    <div class="bg-carousel" id="bgCarousel"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="container">
+
+        <h1>Plan Your Safari</h1>
+
+        <form id="bookingForm" onsubmit="submitForm(event)">
+
+            <!-- STEP 1 -->
+            <div class="step active">
+                <h2>Choose Your Safari Experience</h2>
+
+                <label>Safari Category</label>
+                <select id="category">
+                    <option value="" disabled selected>Select a category...</option>
+                    <option>Beach Getaways – Relax along the Indian Ocean</option>
+                    <option>Wildlife Safaris – Experience Kenya's Big Five</option>
+                    <option>Mountain Climbing Adventures – Conquer Mt Kenya</option>
+                    <option>Fly-in Safaris – Luxury air safari experiences</option>
+                    <option>Self Drive Packages – Explore at your own pace</option>
+                    <option>International Travel – Explore beyond East Africa</option>
+                    <option>Valentine Edition – Romantic escapes</option>
+                    <option>Easter Edition – Holiday safari specials</option>
+                    <option>Christmas Packages – Festive season safaris</option>
+                    <option>Golf Safaris – Luxury golf travel</option>
+                    <option>Game Drive Safaris – Thrilling wildlife encounters</option>
+                    <option>Group Hike – Adventure hiking trips</option>
+                    <option>Singles Getaway – Meet and travel with new people</option>
+                    <option>Adrenaline Adventures – Extreme adventure travel</option>
+                </select>
+
+                <label>Preferred Destination</label>
+                <select id="destination">
+                    <option value="" disabled selected>Select a destination...</option>
+                    <option>Mombasa</option>
+                    <option>Malindi</option>
+                    <option>Diani</option>
+                    <option>Wasini</option>
+                    <option>Nairobi</option>
+                    <option>Masai Mara</option>
+                    <option>Naivasha</option>
+                    <option>Nakuru</option>
+                    <option>Mt Kenya</option>
+                    <option>Zanzibar</option>
+                    <option>Uganda</option>
+                    <option>Rwanda</option>
+                    <option>Dubai</option>
+                    <option>Mauritius</option>
+                    <option>South Africa</option>
+                </select>
+
+                <label>Estimated Duration</label>
+                <select id="duration">
+                    <option value="" disabled selected>Select duration...</option>
+                    <option>1 Day</option>
+                    <option>3–5 Days</option>
+                    <option>6–8 Days</option>
+                    <option>9–12 Days</option>
+                    <option>13–15 Days</option>
+                    <option>16+ Days</option>
+                </select>
+
+                <div class="buttons">
+                    <button type="button" class="btn-right" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="step">
+                <h2>Travel Dates & Guests</h2>
+
+                <label>Travel Start Date</label>
+                <input type="date" id="startDate">
+
+                <label>Travel End Date</label>
+                <input type="date" id="endDate">
+
+                <label>Adults</label>
+                <input type="number" id="adults" min="1" value="1">
+
+                <label>Kids</label>
+                <input type="number" id="kids" min="0" value="0">
+
+                <label>Kid Age(s)</label>
+                <input type="text" id="kidAge" placeholder="e.g., 5, 8">
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep()">Previous</button>
+                    <button type="button" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="step">
+                <h2>Special Preferences</h2>
+
+                <label>Tell us your preferences</label>
+                <textarea id="prefs" rows="5"
+                    placeholder="Bonfire, Bush dinners, Luxury lodge, Honeymoon setup etc"></textarea>
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep()">Previous</button>
+                    <button type="button" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="step">
+                <h2>Contact Information</h2>
+
+                <label>Full Name</label>
+                <input type="text" id="name" required>
+
+                <label>Email Address</label>
+                <input type="email" id="email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                    title="Please provide a valid complete email address (e.g. user@gmail.com)">
+
+                <label>Phone Number / WhatsApp</label>
+                <input type="tel" id="phone" required>
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep()">Previous</button>
+                    <button type="button" onclick="nextStep()">Next Step</button>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="step">
+                <h2>Review Your Safari Request</h2>
+
+                <p style="text-align: center; margin-top: 0;">Please review your details before submitting.</p>
+
+                <div class="review-box" id="reviewData">
+                    <!-- Javascript will inject data strictly here -->
+                </div>
+
+                <div class="buttons">
+                    <button type="button" onclick="prevStep()">Previous</button>
+                    <button type="submit">Submit Booking Request</button>
+                </div>
+            </div>
+
+            <!-- STEP 6 (Thank You / Success) -->
+            <div class="step thank-you-msg">
+                <h2>Thank You!</h2>
+                <p>Hello <strong id="displayName" style="color:#f8ab3f;"></strong>,</p>
+                <p>Your magnificent safari request has been successfully generated.</p>
+                <p>We are reviewing your request. An email and WhatsApp containing your request data is being processed,
+                    and our agents will reach back to you as soon as possible via the contact details provided.</p>
+                <p><em>Welcome to Nature Breeze Safaris!</em></p>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script>
+        /* ------------------------
+           BACKGROUND CAROUSEL
+        ------------------------ */
+        const bgImages = [
+            'NBA-images/eagle.jpg',
+            'NBA-images/beast.jpg',
+            'NBA-images/lions.jpg',
+            'NBA-images/zebras.jpg',
+            'NBA-images/leopard.jpg',
+            'NBA-images/leopard 2.jpg',
+            'NBA-images/rhino.jpg',
+            'NBA-images/gilaffe.jpg'
+        ];
+
+        let bgIndex = 0;
+        const bgCarousel = document.getElementById('bgCarousel');
+
+        function changeBackground() {
+            bgCarousel.style.backgroundImage = `url('${bgImages[bgIndex]}')`;
+            bgIndex = (bgIndex + 1) % bgImages.length;
+        }
+
+        // Init and interval
+        changeBackground();
+        setInterval(changeBackground, 4000);
+
+
+        /* ------------------------
+           FORM STEPS LOGIC
+        ------------------------ */
+        let step = 0;
+        let steps = document.querySelectorAll(".step");
+
+        function showStep() {
+            steps.forEach((s, i) => {
+                s.classList.toggle("active", i === step);
+            });
+        }
+
+        function escapeHTML(str) {
+            return String(str).replace(/[&<>'"]/g,
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        function validateCurrentStep() {
+            // Optional basic validation for step 4 before proceeding to step 5 (Review)
+            if (step === 3) {
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+
+                if (!name || !email || !phone) {
+                    alert("Please fill out your Name, Email, and Phone to proceed.");
+                    return false;
+                }
+
+                const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    alert("Please enter a valid complete email address (e.g. user@gmail.com).");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function populateReview() {
+            const category = document.getElementById('category').value || 'Not selected';
+            const dest = document.getElementById('destination').value || 'Not selected';
+            const duration = document.getElementById('duration').value || 'Not selected';
+            const sDate = document.getElementById('startDate').value || 'Not set';
+            const eDate = document.getElementById('endDate').value || 'Not set';
+            const adults = document.getElementById('adults').value || '0';
+            const kids = document.getElementById('kids').value || '0';
+            const kidAge = document.getElementById('kidAge').value || 'N/A';
+            const prefs = document.getElementById('prefs').value || 'None';
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const reviewBox = document.getElementById('reviewData');
+            reviewBox.innerHTML = `
+                <p><strong>Name:</strong> ${escapeHTML(name)}</p>
+                <p><strong>Email:</strong> ${escapeHTML(email)}</p>
+                <p><strong>Contact/WhatsApp:</strong> ${escapeHTML(phone)}</p>
+                <p><strong>Category:</strong> ${escapeHTML(category)}</p>
+                <p><strong>Destination:</strong> ${escapeHTML(dest)}</p>
+                <p><strong>Duration:</strong> ${escapeHTML(duration)}</p>
+                <p><strong>Dates:</strong> ${escapeHTML(sDate)} to ${escapeHTML(eDate)}</p>
+                <p><strong>Guests:</strong> ${escapeHTML(adults)} Adults, ${escapeHTML(kids)} Kids (Ages: ${escapeHTML(kidAge)})</p>
+                <p><strong>Preferences:</strong> ${escapeHTML(prefs)}</p>
+            `;
+
+            // For Thank You message
+            document.getElementById('displayName').innerText = escapeHTML(name);
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) return;
+
+            step++;
+            if (step === 4) { // Step 5 visually (Index 4)
+                populateReview();
+            }
+            showStep();
+        }
+
+        function prevStep() {
+            step--;
+            showStep();
+        }
+
+        /* ------------------------
+           SUBMIT LOGIC
+        ------------------------ */
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default browser submit
+
+            // Double check native validation before submission
+            const form = document.getElementById('bookingForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // 1. Show the Thank you step (step index 5 = 6th step visual)
+            step = 5;
+            showStep();
+
+            // 2. Trigger Mailto Redirect
+            const name = document.getElementById('name').value;
+            const reviewBoxText = document.getElementById('reviewData').innerText;
+
+            const subject = encodeURIComponent(`New Safari Booking Request - ${name}`);
+            const body = encodeURIComponent(`Hello Nature Breeze Safaris,\n\nPlease find my safari request details below:\n\n${reviewBoxText}\n\nThank you!`);
+
+            // Allow the thank you screen to render briefly before prompting the email client
+            setTimeout(() => {
+                window.location.href = `mailto:nbadeals@hotmail.com?subject=${subject}&body=${body}`;
+            }, 600);
+        }
+
+    </script>
+
+    <!-- ================= FOOTER ================= -->
+    <style>
+        .footer {
+            background: #2b2b2b;
+            color: white;
+            padding: 40px 30px 15px;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+            left: 2%;
+        }
+
+        @media(max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer h3 {
+            color: #f8ab3f;
+            margin-bottom: 12px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Lists for Links & Contact - Paragraph Style */
+        .footer-links,
+        .footer-contact {
+            line-height: 2;
+        }
+
+        .footer-links a,
+        .footer-contact a,
+        .footer-contact span,
+        .footer-contact p {
+            text-decoration: none;
+            color: #ddd;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        .footer-contact p {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .footer-links a:hover,
+        .footer-contact a:hover {
+            color: #f8ab3f;
+        }
+
+        /* Form styling */
+        .newsletter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-radius: 4px;
+            font-size: 12px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f8ab3f;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .newsletter-input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-btn {
+            background: #f8ab3f;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .newsletter-btn:hover {
+            background: #d48b26;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(248, 171, 63, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+
+    <footer class="footer">
+
+        <div class="footer-grid">
+
+            <!-- COLUMN 1: DETAIL FORM (LEFT) -->
+            <div>
+                <h3>Connect With Us</h3>
+                <form action="mailto:nbadeals@hotmail.com" method="post" class="footer-form" enctype="text/plain">
+                    <div class="newsletter-row">
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="First Name"
+                            name="firstname" required>
+                        <input class="newsletter-input" style="margin-bottom:0;" type="text" placeholder="Second Name"
+                            name="secondname" required>
+                    </div>
+                    <input class="newsletter-input" type="tel" placeholder="Phone / Contact" name="phone" required>
+                    <input class="newsletter-input" type="email" placeholder="Email Address" name="email" required
+                        pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                        title="Please provide a valid complete email address (e.g. user@gmail.com)">
+                    <button class="newsletter-btn">SUBMIT DETAILS</button>
+                </form>
+                <p style="font-size:10px; margin-top:8px; color:#aaa;">
+                    By entering your email you agree to our terms and privacy policy.
+                </p>
+            </div>
+
+            <!-- COLUMN 2: TOP DESTINATIONS (MIDDLE LEFT) -->
+            <div>
+                <h3>Top Destinations</h3>
+                <div class="footer-links">
+                    <a href="signature.html.html#masai-mara">Masai Mara</a>
+                    <a href="signature.html.html#amboseli">Amboseli</a>
+                    <a href="index.html.html#dest-diani">Diani Beach</a>
+                    <a href="index.html.html#dest-zanzibar">Zanzibar</a>
+                    <a href="index.html.html#dest-maldives">Maldives</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 3: COMPANY (MIDDLE RIGHT) -->
+            <div>
+                <h3>Company</h3>
+                <div class="footer-links">
+                    <a href="index.html.html#about-section">About</a>
+                    <a href="faq.html">FAQ</a>
+                    <a href="policy.html">Privacy Policy</a>
+                    <a href="policy.html">Cancellation & Refund Policy</a>
+                    <a href="policy.html">Booking Amendment Policy</a>
+                    <a href="policy.html">Payment Policy</a>
+                    <a href="terms.html">Terms & Conditions</a>
+                </div>
+            </div>
+
+            <!-- COLUMN 4: CONTACT (RIGHT) -->
+            <div>
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <a href="https://wa.me/254757059117"><strong>Phone 1:</strong> +254 757 059 117</a>
+                    <a href="https://wa.me/254790435273"><strong>Phone 2:</strong> +254 790 435 273</a>
+                    <a href="mailto:nbadeals@hotmail.com"><strong>Mail:</strong> nbadeals@hotmail.com</a>
+                    <p><strong>Office:</strong> Nairobi, Alsops</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            Copyright 2025 Nature Breeze Safaris
+        </div>
+
+    </footer>
+    <!-- ======================================== -->
+
+    <!-- ================= FLOATING WHATSAPP BUTTONS ================= -->
+    <style>
+        .wa-floating-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px 10px 15px;
+            border-radius: 30px;
+            font-family: "Genera", sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: bounce-wa 2.5s infinite ease-in-out;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: #1ebe57;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            animation: none;
+        }
+
+        .wa-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .wa-group-btn {
+            background: #f8ab3f;
+            box-shadow: 0 4px 15px rgba(248, 171, 63, 0.4);
+            animation-delay: 1.25s;
+        }
+
+        .wa-group-btn:hover {
+            background: #e59a2f;
+            box-shadow: 0 8px 25px rgba(248, 171, 63, 0.6);
+        }
+
+        @keyframes bounce-wa {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .wa-floating-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .wa-btn {
+                padding: 8px 15px 8px 10px;
+                font-size: 12px;
+            }
+
+            .wa-btn img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+
+    <div class="wa-floating-container">
+        <a href="https://chat.whatsapp.com/LvXAEencenw5RFblz8p6RS?mode=gi_t" target="_blank"
+            class="wa-btn wa-group-btn">
+            <img src="NBA-images/WhatsApp.png" alt="WhatsApp Group">
+            Join Safari Group
+        </a>
+        <a href="https://wa.me/254757059117?text=Hello%20Alex,%20I%20am%20interested%20in%20a%20safari%20with%20Nature%20Breeze!"
+            target="_blank" class="wa-btn">
+            <img src="NBA-images/WhatsApp.png" alt="Talk to Alex">
+            Talk to Alex
+        </a>
+    </div>
+
+</body>
+
+</html>
